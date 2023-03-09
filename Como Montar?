@@ -1,0 +1,15 @@
+Conecte o Sensor Ultrassônico HC-SR04 ao módulo ESP8266. Conecte o pino de entrada do sensor ultrassônico ao pino D1 do módulo ESP8266 e o pino de saída do sensor ultrassônico ao pino D2 do módulo ESP8266.
+
+Conecte o Servo Motor ao módulo ESP8266. Use um jumper para conectar o pino de controle do servo motor ao pino D3 do módulo ESP8266.
+
+Coloque a lixeira em uma posição adequada para o sensor ultrassônico. Certifique-se de que o sensor ultrassônico tenha uma visão clara da área onde os objetos serão detectados.
+
+Conecte a fonte de alimentação (5V) ao módulo ESP8266.
+
+Baixe e instale o aplicativo Blynk no seu smartphone. Crie um projeto Blynk e adicione o widget "Button" para controlar a abertura da lixeira.
+
+Carregue o código fornecido no módulo ESP8266. O código fará com que o módulo ESP8266 se conecte à rede Wi-Fi e leia os dados do sensor ultrassônico. Se a distância for menor que 20 cm, o servo motor abrirá a tampa da lixeira. O código também se comunicará com o aplicativo Blynk para controlar a abertura da lixeira remotamente.
+
+Teste a lixeira eletrônica. Pressione o botão no aplicativo Blynk para abrir ou fechar a lixeira. Teste também a detecção automática de objetos colocando um objeto próximo à lixeira.
+
+Com esses passos, você deverá ser capaz de montar a lixeira eletrônica com ESP8266 e controlá-la remotamente por meio do aplicativo Blynk. Certifique-se de tomar todas as precauções necessárias durante a montagem e teste cuidadosamente antes de colocar a lixeira em uso.
