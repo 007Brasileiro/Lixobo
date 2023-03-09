@@ -1,0 +1,80 @@
+
+Lixeira Eletrônica ESP8266
+
+
+
+
+
+Projeto de Lixeira Eletrônica com ESP8266
+
+Este projeto consiste em criar uma lixeira eletrônica que pode ser controlada remotamente por meio de um módulo ESP8266. A lixeira pode ser aberta automaticamente quando detecta um objeto próximo ou pode ser aberta manualmente através de um aplicativo de smartphone.
+
+Componentes Necessários:
+
+Módulo ESP8266 (NodeMCU)
+Sensor Ultrassônico HC-SR04
+Servo Motor
+Lixeira com tampa que possa ser aberta
+Fonte de alimentação (5V)
+Jumpers
+Passo a Passo:
+
+Conecte o Sensor Ultrassônico HC-SR04 ao módulo ESP8266.
+Conecte o Servo Motor ao módulo ESP8266.
+Coloque a lixeira em uma posição adequada para o sensor ultrassônico.
+Use o jumper para conectar o pino de entrada do sensor ultrassônico ao pino D1 do módulo ESP8266.
+Conecte o pino de saída do sensor ultrassônico ao pino D2 do módulo ESP8266.
+Use o jumper para conectar o pino de controle do servo motor ao pino D3 do módulo ESP8266.
+Conecte a fonte de alimentação ao módulo ESP8266.
+Baixe e instale o aplicativo Blynk no seu smartphone.
+Crie um projeto Blynk e adicione o widget "Button" para controlar a abertura da lixeira.
+Crie um código para ESP8266 que irá se conectar à rede Wi-Fi e lerá os dados do sensor ultrassônico. Se a distância for menor que 20 cm, o servo motor abrirá a tampa da lixeira. O código também deve se comunicar com o aplicativo Blynk para controlar a abertura da lixeira remotamente.
+Código para ESP8266:
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+#define trigPin D1
+#define echoPin D2
+#define servoPin D3
+#define OPEN 20
+
+char auth[] = "seu_token_aqui";
+char ssid[] = "seu_wifi_aqui";
+char pass[] = "sua_senha_aqui";
+
+BlynkTimer timer;
+Servo myservo;
+
+void setup() {
+Serial.begin(9600);
+Blynk.begin(auth, ssid, pass);
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+myservo.attach(servoPin);
+}
+
+void loop() {
+Blynk.run();
+timer.run();
+}
+
+BLYNK_WRITE(V1) {
+int value = param.asInt();
+if (value == 1) {
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+float distance = pulseIn(echoPin, HIGH) / 58.2;
+Serial.print("Distance: ");
+Serial.println(distance);
+if (distance < OPEN) {
+myservo.write(90);
+delay(1000);
+myservo.write(0);
+}
+} else {
+myservo.write(0);
+}
+}
